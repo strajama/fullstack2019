@@ -1,3 +1,3 @@
 # fullstack2019
 
-[osa 0] ()
+[osa 0]()
