@@ -1,0 +1,13 @@
+note over selain:
+uuden muistiinpanon lähettämisen hoitaa
+Javascript-tiedostossa määritelty koodi,
+mikä luo tapahtumankäsittelijän,
+* joka luo uuden muistiinpanon,
+* piirtää muistiinpanolistan uudelleen
+* ja lähettää uuden muistiinpanon palvelimelle
+end note
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+note over palvelin:
+palvelin ei pyydä uudelleenohjausta
+end note
+palvelin-->selain: HTTP-statuskoodi 201 Created
