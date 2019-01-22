@@ -2,9 +2,6 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 const Statistics = (props) => {
-//    const good = props.good
-  //  const neutral = props.neutral
-    //const bad = props.bad
     const {good, neutral, bad} = props
     const all = good + neutral + bad
     const ca = (good - bad) / all
