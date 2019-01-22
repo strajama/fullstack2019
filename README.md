@@ -4,3 +4,4 @@
 
 [osa 1](https://github.com/strajama/fullstack2019/tree/master/osa1)
 * [tehtävät 1.1-1.5 index.js](https://github.com/strajama/fullstack2019/blob/master/osa1/tehtavat%201.1-1.5/src/index.js)
+* [unicafe 1.6-1.11 index.js](https://github.com/strajama/fullstack2019/blob/master/osa1/unicafe/src/index.js)
