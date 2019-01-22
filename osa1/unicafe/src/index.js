@@ -60,9 +60,9 @@ const App = () => {
   return (
     <div>
       <h1>anna palautetta</h1>
-      <Button handleClick={() => setGood(good + 1)}text='hyvä'/>
-      <Button handleClick={() => setNeutral(neutral + 1)}text='neutraali'/>
-      <Button handleClick={() => setBad(bad + 1)}text='huono'/>
+      <Button handleClick={() => setGood(good + 1)} text='hyvä'/>
+      <Button handleClick={() => setNeutral(neutral + 1)} text='neutraali'/>
+      <Button handleClick={() => setBad(bad + 1)} text='huono'/>
       <h1>statistiikka</h1>
       <Statistics good={good} neutral={neutral} bad={bad}/>
     </div>
