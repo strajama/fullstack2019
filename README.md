@@ -9,3 +9,4 @@
 
 [osa 2](https://github.com/strajama/fullstack2019/tree/master/osa2)
 * [tehtävät 2.1-2.5 kurssitiedot](https://github.com/strajama/fullstack2019/tree/master/osa2/kurssitiedot/src)
+* [tehtävät 2.6-2.10 puhelinluettelo](https://github.com/strajama/fullstack2019/tree/master/osa2/puhelinluettelo/src)
