@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Person from './components/Person'
 import Filter from './components/Filter'
 import NewSubmit from './components/NewSubmit'
+import personService from './services/persons'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
@@ -11,15 +11,12 @@ const App = () => {
   const [ filterName, setFilter ] = useState('')
 
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialNotes => {
+        setPersons(initialNotes)
       })
   }, [])
-  console.log('render', persons.length, 'persons')
 
   const filterPerson = () => {
     let newPersons = []    
@@ -33,9 +30,10 @@ const App = () => {
 
   const rows = () => filterPerson().map(person =>
     <Person
-      key={person.name}
+      key={person.id}
       name={person.name}
       number={person.number}
+      removePerson={() => removeThePerson(person.name, person.id)}
     />
   )
 
@@ -55,10 +53,24 @@ const App = () => {
       number: newNumber
     }
     isTherePerson(personObject)
-    ? alert(`${newName} on jo luettelossa`)
-    : setPersons(persons.concat(personObject))
-    setNewName('')
-    setNewNumber('')
+    ? alert(`${newName} on jo luettelossa, korvataanko vanha numero uudella?`)     
+    : personService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
+      })
+  }
+
+  const removeThePerson = (name, id) => {
+    if (window.confirm(`Poistetaanko ${name}`)) {
+      personService
+      .remove(id)
+      .then(initialNotes => {
+        setPersons(initialNotes)
+      })
+    }
   }
   
   const handleNameChange = (event) => {
