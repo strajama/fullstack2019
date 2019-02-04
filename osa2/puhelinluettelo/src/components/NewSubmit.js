@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const NewSubmit = (props) => {
     const {addPerson, newName, handleNameChange, newNumber, handleNumberChange} = props
     return (
@@ -13,7 +14,8 @@ const NewSubmit = (props) => {
       <div>
         <button type="submit">lisää</button>
       </div>
-    </form>)
+    </form>
+    )
 }
 
 export default NewSubmit

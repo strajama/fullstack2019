@@ -4,10 +4,7 @@ const Filter = (props) => {
     const { filterName , handleFilterChange } = props
     return (
     <form method="post">
-    <div>
-        rajaa näytettäviä 
-        <input value={filterName} onChange={handleFilterChange}/>
-    </div>
+    <div>rajaa näytettäviä<input value={filterName} onChange={handleFilterChange}/></div>
     </form>
     )
 }
