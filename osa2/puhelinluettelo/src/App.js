@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import Person from './components/Person'
+import Filter from './components/Filter'
+import NewSubmit from './components/NewSubmit'
 
 const App = () => {
   const [ persons, setPersons] = useState([
@@ -12,8 +14,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ filterName, setFilter ] = useState('')
 
-  const makeFilter = () => {
-
+  const filterPerson = () => {
     let newPersons = []    
     for (let value of persons.values()) {
       if (value.name.includes(filterName)) {
@@ -23,11 +24,7 @@ const App = () => {
     return newPersons
   }
 
-  const filterPerson = filterName
-  ? makeFilter()
-  : persons
-
-  const rows = () => filterPerson.map(person =>
+  const rows = () => filterPerson().map(person =>
     <Person
       key={person.name}
       name={person.name}
@@ -72,25 +69,10 @@ const App = () => {
   return (
     <div>
       <h2>Puhelinluettelo</h2>
-      <form method="post">
-        <div>
-          rajaa näytettäviä 
-          <input value={filterName} onChange={handleFilterChange}/>
-        </div>
-      </form>
+      <Filter filterName={filterName} handleFilterChange={handleFilterChange}/>
 
       <h3>Lisää uusi</h3>
-      <form onSubmit={addPerson} method="post">
-        <div>
-          nimi: <input value={newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          numero: <input value={newNumber} onChange={handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">lisää</button>
-        </div>
-      </form>
+      <NewSubmit addPerson={addPerson} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
       <h3>Numerot</h3>
         <ul>
           {rows()}
