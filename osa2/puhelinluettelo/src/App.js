@@ -60,7 +60,7 @@ const App = () => {
         })
         .catch(error => setMessage('jotain meni pieleen'))
       } else {
-        setMessage(`${newName} ei päitetty uuteen.`)
+        setMessage(`${newName} ei päivitetty uuteen.`)
       }
         
       
