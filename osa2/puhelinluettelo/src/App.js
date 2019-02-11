@@ -19,13 +19,19 @@ const App = () => {
         setPersons(initial)        
       })
   }, [])
-
+/*
   const filterPerson = () => {
     if (filterName) {
-      return persons.filter(p => p.name.includes(filterName))
+      return persons.filter(p => {
+        p.name.toLowerCase().includes(filterName.toLowerCase())
+      })
     }
     return persons
-  }
+  }*/
+
+  const filterPerson= filterName.length === 0
+  ? persons 
+  : persons.filterName(p => p.name.toLowerCase().includes(filterName.toLowerCase()) )
 
   const rows = () => filterPerson().map(person =>
     <Person
@@ -47,10 +53,12 @@ const App = () => {
       const confirm = window.confirm(`${newName} on jo luettelossa, korvataanko vanha numero uudella?`)
       if (confirm) {
         personService
-        .update(oldPerson.id, personObject)
+//        .update(oldPerson.id, personObject)
+        .replace({ ...oldPerson, number: newNumber})
         .then(returnedPerson => {
-          persons.splice(oldPerson.id-1,1)
-          setPersons(persons.concat(returnedPerson))
+//          persons.splice(oldPerson.id-1,1)
+//          setPersons(persons.concat(returnedPerson))
+          setPersons(persons.map(p => p.name === newName ? returnedPerson : p))
           setNewName('')
             setNewNumber('')
             setMessage(`Päivitettiin ${newName}`)
@@ -58,7 +66,10 @@ const App = () => {
               setMessage(null)
             }, 5000)
         })
-        .catch(error => setMessage('jotain meni pieleen'))
+        .catch(error => {
+          setMessage(error.response.data)
+          console.log()
+          })
       } else {
         setMessage(`${newName} ei päivitetty uuteen.`)
       }
@@ -85,7 +96,7 @@ const App = () => {
     if (confirm) {
       personService
       .remove(id)
-      .then(initial => {
+      .then(() => {
         setPersons(persons.filter(p => p.id !== id))
         setMessage(`${name} on poistettu.`)
         setTimeout(() => {
