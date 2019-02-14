@@ -13,3 +13,6 @@
 
 [osa 3](https://github.com/strajama/puhelinluettelobackend)
 * omassa repositiossaan
+
+[osa 4](https://github.com/strajama/fullstack2019/tree/master/osa4/blogilista)
+* tehtävät 4.1 - 4.5
