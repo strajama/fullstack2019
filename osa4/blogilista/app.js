@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const blogsRouter = require('./controllers/blogs')
 
+
 const morgan = require('morgan')
 app.use(morgan('tiny', {
   skip: (request) => { return request.method === 'POST' }
