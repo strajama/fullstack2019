@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+"title": "Pikku naisia",
+"author": "L. M. Alcott",
+"url": "https://github.com/strajama",
+"likes": 10
+}
