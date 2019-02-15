@@ -72,6 +72,69 @@ test('blogs have id-field', async () => {
   expect(contents).toBeDefined()
 })
 
+test('new blog can be added', async () => {
+  const newBlog = {
+    'title': 'Pikku naisia',
+    'author': 'L. M. Alcott',
+    'url': 'https://github.com/strajama',
+    'likes': 10
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  const titles = response.body.map(t => t.title)
+
+  expect(response.body.length).toBe(initialBlogs.length + 1)
+  expect(titles).toContain('Pikku naisia')
+})
+
+test('there is default value zero in likes', async () => {
+  const newBlog = {
+    'title': 'Pikku naisia',
+    'author': 'L. M. Alcott',
+    'url': 'https://github.com/strajama'
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  expect(response.body.length).toBe(initialBlogs.length + 1)
+  const last = response.body.pop()
+  expect(last.likes).toBe(0)
+})
+
+test('bad request without title or url', async () => {
+  const noTitle = {
+    'author': 'L. M. Alcott',
+    'url': 'https://github.com/strajama',
+    'likes': 10
+  }
+  const noUrl = {
+    'title': 'Pikku naisia',
+    'author': 'L. M. Alcott',
+    'likes': 10
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(noTitle)
+    .expect(400)
+
+  await api
+    .post('/api/blogs')
+    .send(noUrl)
+    .expect(400)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
