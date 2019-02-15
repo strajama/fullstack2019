@@ -50,7 +50,7 @@ const initialBlogs = [
 ]
 
 beforeEach(async () => {
-  await Blog.remove({})
+  await Blog.deleteMany()
 
   for (let i = 0; i < initialBlogs.length; i++) {
     let noteObject = new Blog(initialBlogs[i])
