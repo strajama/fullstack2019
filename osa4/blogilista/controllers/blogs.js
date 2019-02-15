@@ -1,9 +1,11 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../models/user')
+const helper = require('../utils/list_helper')
 
 blogsRouter.get('/', async (request, response, next) => {
   try {
-    const blogs = await Blog.find({})
+    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
     response.json(blogs.map(blog => blog.toJSON()))
   } catch(exception) {
     next(exception)
@@ -19,15 +21,33 @@ blogsRouter.post('/', async (request, response, next) => {
   if (request.body.url === undefined) {
     return response.status(400).json({ error: 'url is missing' })
   }
+  const body = request.body
+  const oneUser = await helper.oneUser()
+  console.log(oneUser._id)
+  const user = await User.findById(body.user)
 
-  const blog = await new Blog(request.body)
+  const blog = await new Blog({
+    title: body.title,
+    author: body.author,
+    url: body.url,
+    likes: body.likes === undefined ? 0 : body.likes,
+    user: body.user === undefined ? oneUser._id : body.user
+  })
+
   try{
-    await blog.save()
+    const savedBlog = await blog.save()
+    if (user) {
+      user.blogs = user.blogs.concat(savedBlog.id)
+      await user.save()
+    } else {
+      oneUser.blogs = oneUser.blogs.concat(savedBlog.id)
+      await oneUser.save()
+    }
+
     response.status(201).json(blog.toJSON())
   } catch (exception) {
     next(exception)
   }
-
 })
 
 blogsRouter.delete('/:id', async (request, response, next) => {

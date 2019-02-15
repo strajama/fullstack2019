@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 const logger = require('../utils/logger')
 const config = require('../utils/config')
 
@@ -14,23 +15,34 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true })
     logger.error('error connection to MongoDB:', error.message)
   })
 
-const blogSchema = mongoose.Schema({
-  title: { type: String, required: true },
-  author: String,
-  url: { type: String, required: true },
-  likes: { type: Number, default: 0 },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }
+const userSchema = mongoose.Schema({
+  username: {
+    type: String,
+    minlength: 3,
+    unique: true,
+    required: true
+  },
+  name: String,
+  passwordHash: {
+    type: String
+  },
+  blogs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Blog'
+    }
+  ]
 })
 
-blogSchema.set('toJSON', {
+userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
+    delete returnedObject.passwordHash
   }
 })
 
-module.exports = mongoose.model('Blog', blogSchema)
+userSchema.plugin(uniqueValidator, { message: 'username must be unique' })
+
+module.exports = mongoose.model('User', userSchema)
