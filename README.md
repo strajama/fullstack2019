@@ -15,4 +15,4 @@
 * omassa repositiossaan
 
 [osa 4](https://github.com/strajama/fullstack2019/tree/master/osa4/blogilista)
-* tehtävät 4.1 - 4.19, 4.21
+* tehtävät 4.1 - 4.21
