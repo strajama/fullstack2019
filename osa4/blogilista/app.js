@@ -41,7 +41,7 @@ const cors = require('cors')
 app.use(cors())
 
 app.use(bodyParser.json())
-//app.use(middleware.tokenExtractor)
+app.use(middleware.tokenExtractor)
 app.use(middleware.requestLogger)
 
 
