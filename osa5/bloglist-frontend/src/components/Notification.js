@@ -4,7 +4,6 @@
     if (notification.message === null) {
       return null
     }
-    console.log(notification.type)
     const style = {
       color: notification.type === 'error' ? 'red' : 'green',
       background: 'lightgrey',
@@ -14,8 +13,6 @@
       padding: 10,
       marginBottom: 10,
     }
-    console.log('style')
-    console.log(style)
   
     return (
       <div style={style}>
