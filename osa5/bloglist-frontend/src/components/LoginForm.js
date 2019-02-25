@@ -16,7 +16,7 @@ const LoginForm = ({ login }) => {
   }
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleLogin} className='loginForm'>
       <div>
           username
         <input
@@ -33,7 +33,7 @@ const LoginForm = ({ login }) => {
           name="Password"
           onChange={({ target }) => setPassword(target.value)}/>
       </div>
-      <button type="submit">kirjaudu</button>
+      <button type="submit">login</button>
     </form>
   )
 

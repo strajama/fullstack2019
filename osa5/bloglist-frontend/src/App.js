@@ -93,7 +93,6 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       blogService.setToken(user.token)
-      console.log('blogservicen token asetettu')
     }
   }, [])
 
@@ -119,7 +118,7 @@ const App = () => {
       <h2>blogs</h2>
       <Notification notification={notification} />
       <p>{user.name} logged in</p>
-      <p><button onClick={handleLogout}>Log out</button></p>
+      <p><button onClick={handleLogout} className='handleLogout'>Log out</button></p>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog}/>
       )}
