@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
+import  { useField } from '../hooks'
 
 const LoginForm = ({ login }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const username = useField('text')
+  const password = useField('password')
 
   const handleLogin = async event => {
     event.preventDefault()
     const loggingin = await login ({
-      username, password
+      username: username.value , password: password.value
     })
+
     if (loggingin) {
-      setUsername('')
-      setPassword('')
+      username.reset()
+      password.reset()
     }
   }
 
@@ -19,19 +21,15 @@ const LoginForm = ({ login }) => {
     <form onSubmit={handleLogin} className='loginForm'>
       <div>
           username
-        <input
-          type="text"
-          value={username}
+        <input {...username.print()}
           name="Username"
-          onChange={({ target }) => setUsername(target.value)}/>
+        />
       </div>
       <div>
           password
-        <input
-          type="password"
-          value={password}
+        <input {...password.print()}
           name="Password"
-          onChange={({ target }) => setPassword(target.value)}/>
+        />
       </div>
       <button type="submit">login</button>
     </form>

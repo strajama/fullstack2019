@@ -80,7 +80,6 @@ const App = () => {
     }
   }
 
-
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs.sort((a, b) => b.likes - a.likes) )
@@ -94,7 +93,7 @@ const App = () => {
       setUser(user)
       blogService.setToken(user.token)
     }
-  }, [])
+  }, [window.localStorage])
 
   const handleLogout = event => {
     event.preventDefault()
