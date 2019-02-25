@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 
-const Blog = ({ blog , addLike }) => {
+const Blog = ({ blog , addLike, removeBlog }) => {
   const [visible, setVisible] = useState(false)
 
   const showWhenVisible = { display: visible ? '' : 'none' }
+  const showRemoveButton = {display: blog.user ? '' : 'none'}
 
   const toggleVisibility = () => {
     setVisible(!visible)
@@ -13,6 +14,11 @@ const Blog = ({ blog , addLike }) => {
     event.preventDefault()
     blog.likes = blog.likes + 1
     await addLike(blog)
+  }
+
+  const handleRemove = async event => {
+    event.preventDefault()
+    await removeBlog(blog)
   }
 
   const blogStyle = {
@@ -32,6 +38,7 @@ const Blog = ({ blog , addLike }) => {
         <div>{blog.url}</div>
         <div>{blog.likes} likes <button onClick={handleLike}>Like</button></div>
         {blog.user ? <div>added by {blog.user.name}</div> : null}
+        <div style={showRemoveButton}> <button onClick={handleRemove}>Remove</button></div>
       </div>  
     </div>
   )

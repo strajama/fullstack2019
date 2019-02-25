@@ -65,6 +65,22 @@ const App = () => {
     }
   }
 
+  const removeBlog = async (blog) => {
+    const ok = window.confirm(`remove blog "${blog.title}" by ${blog.author}?`)
+    if (ok) {
+      try {
+        await blogService.remove(blog.id)
+        notify(`${blog.title} was removed`, 'success')
+        return true
+      } catch (error) {
+        notify(error.message, 'error')
+        return false
+      }
+      
+    }
+  }
+
+
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs.sort((a, b) => b.likes - a.likes) )
@@ -105,7 +121,7 @@ const App = () => {
       <p>{user.name} logged in</p>
       <p><button onClick={handleLogout}>Log out</button></p>
       {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} addLike={addLike}/>
+          <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog}/>
       )}
       <Togglable buttonLabel='create new'>
         <CreateNew createNew={createNew}/>
