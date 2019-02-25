@@ -9,7 +9,7 @@ import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [notification, setNotification] = useState({message: null})
+  const [notification, setNotification] = useState({ message: null })
   const [user, setUser] = useState(null)
 
   const notify = (message, type) => {
@@ -22,7 +22,7 @@ const App = () => {
       const user = await loginService.login(logUser)
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
       setUser(user)
       return true
@@ -76,7 +76,7 @@ const App = () => {
         notify(error.message, 'error')
         return false
       }
-      
+
     }
   }
 
@@ -84,7 +84,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs.sort((a, b) => b.likes - a.likes) )
-    )  
+    )
   }, [blogs])
 
   useEffect(() => {
@@ -108,8 +108,8 @@ const App = () => {
     return (
       <div>
         <h2>Log in to application</h2>
-          <Notification notification={notification} />
-          <LoginForm login={login}/>
+        <Notification notification={notification} />
+        <LoginForm login={login}/>
       </div>
     )
   }
@@ -121,14 +121,14 @@ const App = () => {
       <p>{user.name} logged in</p>
       <p><button onClick={handleLogout}>Log out</button></p>
       {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog}/>
+        <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog}/>
       )}
       <Togglable buttonLabel='create new'>
         <CreateNew createNew={createNew}/>
-      </Togglable> 
+      </Togglable>
     </div>
   )
-  
+
 }
 
 export default App
