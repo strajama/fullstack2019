@@ -18,4 +18,4 @@
 * tehtävät 4.1 - 4.21
 
 [osa 5](https://github.com/strajama/fullstack2019/tree/master/osa5/bloglist-frontend)
-* tehtävät 5.1 - 5.15
+* tehtävät 5.1 - 5.20
