@@ -22,3 +22,4 @@
 
 [osa 6]
 * [unicafe 6.1-6.2](https://github.com/strajama/fullstack2019/tree/master/osa6/unicafe-redux)
+* [anekdootit 6.3-6.8](https://github.com/strajama/fullstack2019/tree/master/osa6/redux-anecdotes)
