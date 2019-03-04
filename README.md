@@ -20,6 +20,6 @@
 [osa 5](https://github.com/strajama/fullstack2019/tree/master/osa5/bloglist-frontend)
 * tehtävät 5.1 - 5.20
 
-[osa 6]
+[osa 6](https://github.com/strajama/fullstack2019/tree/master/osa6)
 * [unicafe 6.1-6.2](https://github.com/strajama/fullstack2019/tree/master/osa6/unicafe-redux)
 * [anekdootit 6.3-6.8](https://github.com/strajama/fullstack2019/tree/master/osa6/redux-anecdotes)
