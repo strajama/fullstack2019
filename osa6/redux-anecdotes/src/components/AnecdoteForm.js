@@ -1,5 +1,7 @@
 import React from 'react'
 import { createAnecdote } from '../reducers/anecdoteReducer'
+import { notificationNew, clearNotification } from '../reducers/notificationReducer'
+import Notification from './Notification'
 
 const AnecdoteForm = (props) => {
 
@@ -7,15 +9,24 @@ const AnecdoteForm = (props) => {
 
   const addAnecdote = event => {
     event.preventDefault()
+    const content = event.target.anecdote.value
     store.dispatch(
-      createAnecdote(event.target.anecdote.value)
+      createAnecdote(content)
     )
+    store.dispatch(
+      notificationNew(`you added ${content}`)
+    )
+    setTimeout(() => {
+      store.dispatch(
+        clearNotification()
+      )
+    }, 5000)
     event.target.anecdote.value = ''
   }
 
   return (
     <div>
-      <h2>create new</h2>
+      <Notification store={props.store}/>
       <form onSubmit={addAnecdote}>
         <div><input name="anecdote" /></div>
         <button type="submit">create</button>
