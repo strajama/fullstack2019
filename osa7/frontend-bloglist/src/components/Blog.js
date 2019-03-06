@@ -12,8 +12,7 @@ const Blog = ({ blog , addLike, removeBlog }) => {
 
   const handleLike = async event => {
     event.preventDefault()
-    blog.likes = blog.likes + 1
-    await addLike(blog)
+    await addLike(blog.id, blog)
   }
 
   const handleRemove = async event => {
