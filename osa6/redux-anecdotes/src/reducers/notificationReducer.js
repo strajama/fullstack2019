@@ -1,17 +1,26 @@
 
-export const notificationNew = (message) => {
-  return {
-    type: 'NOTIFICATION',
-    data: message
+export const notificationNew = (message, time) => {
+  return async dispatch => {
+    dispatch({
+      type: 'NOTIFICATION',
+      data: message
+    })
+    setTimeout(() => {
+      dispatch({
+        type: 'CLEARNOTIFICATION',
+        data: null
+      })
+    }, time*1000)
+
   }
 }
 
-export const clearNotification = () => {
-  return {
-    type: 'CLEARNOTIFICATION',
-    data: null
-  }
-}
+// const clearNotification = () => {
+//   return {
+//     type: 'CLEARNOTIFICATION',
+//     data: null
+//   }
+// }
 
 const reducer = (state = null, action) => {
   switch (action.type) {
