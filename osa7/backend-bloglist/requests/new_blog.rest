@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlN1cGVybWFuIiwiaWQiOiI1YzY3NGRjYmEzNTFmYzQzMjk0MjNlMDMiLCJpYXQiOjE1NTAyNzQwMTV9.mwwrQFjFJT27qWQjb8AlLYUreIv6DsYBOHRzSPrCscQ
+
+{
+"title": "Pikku naisia",
+"author": "L. M. Alcott",
+"url": "https://github.com/strajama",
+"likes": 10
+}
