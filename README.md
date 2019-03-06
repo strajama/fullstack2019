@@ -26,3 +26,4 @@
 
 [osa 7](https://github.com/strajama/fullstack2019/tree/master/osa7)
 * [routed anecdotes 7.1-7.3](https://github.com/strajama/fullstack2019/tree/master/osa7/routed-anecdotes)
+* [redux 7.4-7.5](https://github.com/strajama/fullstack2019/tree/master/osa7/frontend-bloglist)
