@@ -18,6 +18,7 @@ import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
 import Menu from './components/Menu'
 import User from './components/User'
+import Blog from './components/Blog'
 
 
 const App = (props) => {
@@ -42,6 +43,9 @@ const App = (props) => {
   const userById = (id) =>
     props.users.find(a => a.id === id)
 
+  const blogById = (id) =>
+    props.blogs.find(a => a.id === id)
+
   if (props.login === null || props.login.length === 0 ) {
     return (
       <div>
@@ -63,6 +67,9 @@ const App = (props) => {
           <Route exact path="/blogs" render={() =>
             <BlogList />
           } />
+          <Route exact path="/blogs/:id" render={({ match }) =>
+            <Blog blog={blogById(match.params.id)} />
+          } />
           <Route exact path="/users" render={() =>
             <UserList />
           } />
@@ -70,9 +77,9 @@ const App = (props) => {
             <User user={userById(match.params.id)} />
           } />
           <Route exact path="/" render={() =>
-            <Togglable buttonLabel='create new blog'>
-              <CreateNew />
-            </Togglable>
+            //<Togglable buttonLabel='create new blog'>
+            <CreateNew />
+            //</Togglable>
           } />
         </div>
       </Router>
@@ -83,7 +90,8 @@ const App = (props) => {
 const mapStateToProps = (state) => {
   return {
     login: state.login,
-    users: state.users
+    users: state.users,
+    blogs: state.blogs
   }
 }
 

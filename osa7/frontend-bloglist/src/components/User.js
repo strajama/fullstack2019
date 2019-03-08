@@ -3,11 +3,7 @@ import { connect } from 'react-redux'
 
 const User = (props) => {
   if ( props.user === undefined) {
-    return (
-      <div>
-        <h2>hello world</h2>
-      </div>
-    )
+    return null
   }
 
   return (

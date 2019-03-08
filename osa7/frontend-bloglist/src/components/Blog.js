@@ -1,13 +1,36 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
+import { notificationNew } from '../reducers/notificationReducer'
+import { like, remove } from '../reducers/blogReducer'
 
-const Blog = ({ blog , addLike, removeBlog }) => {
-  const [visible, setVisible] = useState(false)
+const Blog = ( props ) => {
 
-  const showWhenVisible = { display: visible ? '' : 'none' }
+  if ( props.blog === undefined) {
+    return null
+  }
+  const blog = props.blog
+
   const showRemoveButton = { display: blog.user ? '' : 'none' }
 
-  const toggleVisibility = () => {
-    setVisible(!visible)
+  const addLike = async () => {
+    try {
+      await props.like(blog.id, blog)
+      await props.notificationNew(`you liked ${blog.title}`, 5)
+    } catch (error) {
+      await props.notificationNew(error.message, 5)
+    }
+  }
+
+  const removeBlog = async (blog) => {
+    const ok = window.confirm(`remove blog "${blog.title}" by ${blog.author}?`)
+    if (ok) {
+      try {
+        props.remove(blog.id)
+        props.notificationNew(`${blog.title} was removed`, 5)
+      } catch (error) {
+        props.notificationNew(error.message, 5)
+      }
+    }
   }
 
   const handleLike = async event => {
@@ -29,18 +52,30 @@ const Blog = ({ blog , addLike, removeBlog }) => {
   }
 
   return (
-    <div style={blogStyle} className='blogView'>
-      <div onClick={toggleVisibility} className='smallView'>
-        {blog.title} {blog.author}
-      </div>
-      <div style={showWhenVisible} className='fullView'>
-        <div>{blog.url}</div>
-        <div>{blog.likes} likes <button onClick={handleLike}>Like</button></div>
-        {blog.user ? <div>added by {blog.user.name}</div> : null}
-        <div style={showRemoveButton}> <button onClick={handleRemove}>Remove</button></div>
-      </div>
+    <div style={blogStyle}>
+      <h3>{blog.title}</h3>
+      <div>{blog.url}</div>
+      <div>{blog.likes} likes <button onClick={handleLike}>Like</button></div>
+      {blog.user ? <div>added by {blog.user.name}</div> : null}
+      <div style={showRemoveButton}> <button onClick={handleRemove}>Remove</button></div>
     </div>
   )
 }
 
-export default Blog
+const mapStateToProps = (state) => {
+  return {
+    login: state.login,
+  }
+}
+
+const mapDispatchToProps = {
+  like, notificationNew, remove
+}
+
+const ConnectedBlog = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Blog)
+
+export default ConnectedBlog
+
