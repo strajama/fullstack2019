@@ -3,18 +3,66 @@ import {
   BrowserRouter as Router,
   Route, Link, Redirect, withRouter
 } from 'react-router-dom'
+import { Navbar, Nav } from 'react-bootstrap'
+import { notificationNew } from '../reducers/notificationReducer'
+import { connect } from 'react-redux'
+import blogService from '../services/blogs'
+import { logout } from '../reducers/loginReducer'
 
-const Menu = () => {
+const Menu = (props) => {
+
   const padding = {
     paddingRight: 5
   }
+
+  const handleLogout = event => {
+    event.preventDefault()
+    window.localStorage.clear()
+    props.logout()
+    blogService.setToken('')
+  }
+
   return (
     <div>
-      <Link style={padding} to="/">main</Link>
-      <Link style={padding} to="/blogs">blogs</Link>
-      <Link style={padding} to="/users">users</Link>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/">home</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/blogs">blogs</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/users">users</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              {props.login.name
+                ? <em>{props.login.name} logged in <button onClick={handleLogout} className='handleLogout'>Log out</button></em>
+                : <Link to="/login">login</Link>
+              }
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     </div>
   )
 }
 
-export default Menu
+const mapStateToProps = (state) => {
+  return {
+    login: state.login
+  }
+}
+
+const mapDispatchToProps = {
+  notificationNew, logout
+}
+
+const ConnectedMenu = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Menu)
+
+export default ConnectedMenu

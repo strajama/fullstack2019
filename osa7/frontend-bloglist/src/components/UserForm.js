@@ -15,8 +15,8 @@ const UserForm = (props) => {
 
   return (
     <div>
-      <p>{props.login.name} logged in</p>
-      <p><button onClick={handleLogout} className='handleLogout'>Log out</button></p>
+      {props.login.name} logged in
+      <button onClick={handleLogout} className='handleLogout'>Log out</button>
     </div>
   )
 }

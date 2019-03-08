@@ -58,12 +58,10 @@ const App = (props) => {
 
   return (
     <div className="container">
-      <h2>blogs app</h2>
       <Router>
         <div>
           <Menu />
           < Notification />
-          <UserForm />
           <Route exact path="/blogs" render={() =>
             <BlogList />
           } />
