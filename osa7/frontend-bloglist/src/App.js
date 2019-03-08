@@ -9,12 +9,10 @@ import { notificationNew } from './reducers/notificationReducer'
 import { initializeUsers } from './reducers/userReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 import { newUser, logout } from './reducers/loginReducer'
-import UserForm from './components/UserForm'
 import UserList from './components/UserList'
 import LoginForm from './components/LoginForm'
 import CreateNew from './components/CreateNew'
 import Notification from './components/Notification'
-import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
 import Menu from './components/Menu'
 import User from './components/User'
@@ -75,9 +73,7 @@ const App = (props) => {
             <User user={userById(match.params.id)} />
           } />
           <Route exact path="/" render={() =>
-            //<Togglable buttonLabel='create new blog'>
             <CreateNew />
-            //</Togglable>
           } />
         </div>
       </Router>
@@ -89,7 +85,8 @@ const mapStateToProps = (state) => {
   return {
     login: state.login,
     users: state.users,
-    blogs: state.blogs
+    blogs: state.blogs,
+    comments: state.comments
   }
 }
 

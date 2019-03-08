@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { notificationNew } from '../reducers/notificationReducer'
 import { like, remove } from '../reducers/blogReducer'
+import Comment from './Comment'
+import { Form, Button } from 'react-bootstrap'
 
 const Blog = ( props ) => {
 
@@ -55,16 +57,18 @@ const Blog = ( props ) => {
     <div style={blogStyle}>
       <h3>{blog.title}</h3>
       <div>{blog.url}</div>
-      <div>{blog.likes} likes <button onClick={handleLike}>Like</button></div>
+      <div >{blog.likes} likes <Button variant="primary" onClick={handleLike}>Like</Button></div>
       {blog.user ? <div>added by {blog.user.name}</div> : null}
-      <div style={showRemoveButton}> <button onClick={handleRemove}>Remove</button></div>
+      <div style={showRemoveButton}> <Button variant="primary" onClick={handleRemove}>Remove</Button></div>
+      <h4>comments</h4>
+      <Comment blogId={blog.id}/>
     </div>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    login: state.login,
+    comments: state.comments
   }
 }
 

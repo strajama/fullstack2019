@@ -3,6 +3,7 @@ import { createBlog } from '../reducers/blogReducer'
 import { notificationNew } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
 import  { useField } from '../hooks'
+import { Form, Button } from 'react-bootstrap'
 
 const CreateNew = (props) => {
   const title = useField('text')
@@ -11,48 +12,49 @@ const CreateNew = (props) => {
 
   const createNew = async blog => {
     try {
-      props.createBlog(blog)
-      props.notificationNew('blog added', 5)
+      await props.createBlog(blog)
+      await props.notificationNew('blog added', 5)
     } catch (error) {
-      props.notificationNew(error.message, 5)
+      await props.notificationNew(error.message, 5)
     }
   }
 
   const handleSubmit = async event => {
     event.preventDefault()
-    const newBlog = await createNew({
+    await createNew({
       title: title.value, author: author.value, url: url.value, user: props.login.id
     })
-    if (newBlog) {
-      title.reset()
-      author.reset()
-      url.reset()
-    }
+    title.reset()
+    author.reset()
+    url.reset()
   }
 
   return (
     <div>
       <h2>create new</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>title:</label>
-          <input {...title.print()}
-          />
-        </div>
-        <div>
-          <label>author:</label>
-          <input {...author.print()}
-          />
-        </div>
-        <div>
-          <label>url:</label>
-          <input {...url.print()}
-          />
-        </div>
-        <div>
-          <button type="submit">create</button>
-        </div>
-      </form>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <div>
+            <Form.Label>title:</Form.Label>
+            <input {...title.print()}
+            />
+          </div>
+          <div>
+            <Form.Label>author:</Form.Label>
+            <input {...author.print()}
+            />
+          </div>
+          <div>
+            <Form.Label>url:</Form.Label>
+            <input {...url.print()}
+            />
+          </div>
+          <div>
+            <Button variant="primary" type="submit">create</Button>
+          </div>
+        </Form.Group>
+
+      </Form>
     </div>
   )
 
@@ -62,7 +64,8 @@ const CreateNew = (props) => {
 const mapStateToProps = (state) => {
   return {
     blogs: state.blogs,
-    login: state.login
+    login: state.login,
+    users: state.users
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Alert } from 'react-bootstrap'
 
 const Notification = (props) => {
   const style = {
@@ -16,9 +17,9 @@ const Notification = (props) => {
     props.notifications
       ? (
         (
-          <div style={style}>
+          <Alert>
             {props.notifications}
-          </div>
+          </Alert>
         )
       )
       : null

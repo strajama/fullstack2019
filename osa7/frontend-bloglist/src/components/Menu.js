@@ -1,9 +1,9 @@
 import React from 'react'
 import {
   BrowserRouter as Router,
-  Route, Link, Redirect, withRouter
+  Link
 } from 'react-router-dom'
-import { Navbar, Nav } from 'react-bootstrap'
+import { Navbar, Nav, Button } from 'react-bootstrap'
 import { notificationNew } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
 import blogService from '../services/blogs'
@@ -39,7 +39,7 @@ const Menu = (props) => {
             </Nav.Link>
             <Nav.Link href="#" as="span">
               {props.login.name
-                ? <em>{props.login.name} logged in <button onClick={handleLogout} className='handleLogout'>Log out</button></em>
+                ? <em>{props.login.name} logged in <Button variant="primary" onClick={handleLogout} className='handleLogout'>Log out</Button></em>
                 : <Link to="/login">login</Link>
               }
             </Nav.Link>

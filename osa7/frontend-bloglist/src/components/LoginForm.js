@@ -5,6 +5,7 @@ import blogService from '../services/blogs'
 import { notificationNew } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
 import { newUser } from '../reducers/loginReducer'
+import { Form, Button } from 'react-bootstrap'
 
 const LoginForm = (props) => {
   const username = useField('text')
@@ -16,11 +17,11 @@ const LoginForm = (props) => {
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
       )
-      blogService.setToken(user.token)
-      props.newUser(user)
+      await blogService.setToken(user.token)
+      await props.newUser(user)
       return true
     } catch (error) {
-      props.notificationNew('wrong username or password', 5)
+      await props.notificationNew('wrong username or password', 5)
       return false
     }
   }
@@ -37,21 +38,20 @@ const LoginForm = (props) => {
   }
 
   return (
-    <form onSubmit={handleLogin} className='loginForm'>
-      <div>
-          username
+    <Form onSubmit={handleLogin} className='loginForm'>
+      <Form.Group>
+        <Form.Label>username</Form.Label>
         <input {...username.print()}
           name="Username"
         />
-      </div>
-      <div>
-          password
+        <Form.Label>password</Form.Label>
         <input {...password.print()}
           name="Password"
         />
-      </div>
-      <button type="submit">login</button>
-    </form>
+        <Button variant="primary" type="submit">login</Button>
+      </Form.Group>
+
+    </Form>
   )
 }
 

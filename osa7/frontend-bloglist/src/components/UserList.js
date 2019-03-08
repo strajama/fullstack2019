@@ -2,11 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'react-bootstrap'
 import {
-  BrowserRouter as Router,
-  Route, Link, Redirect, withRouter
+  BrowserRouter as Link
 } from 'react-router-dom'
 import { notificationNew } from '../reducers/notificationReducer'
-import User from './User'
 
 const UserList = (props) => {
 
@@ -25,7 +23,7 @@ const UserList = (props) => {
             <tr key={user.id}>
               <td>
                 <Link to={`/users/${user.id}`}>
-                  {user.name}
+                  <span>{user.name}</span>
                 </Link>
               </td>
               <td>{user.blogs.length}</td>
@@ -38,7 +36,7 @@ const UserList = (props) => {
 }
 
 const usersToShow = ({ users }) => {
-  return users //blogs.sort((a, b) => b.likes - a.likes)
+  return users.sort((a, b) => b.likes - a.likes)
 }
 
 const mapStateToProps = (state) => {
