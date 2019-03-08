@@ -17,6 +17,7 @@ import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
 import Menu from './components/Menu'
+import User from './components/User'
 
 
 const App = (props) => {
@@ -37,6 +38,9 @@ const App = (props) => {
       blogService.setToken(login.token)
     }
   }, [window.localStorage])
+
+  const userById = (id) =>
+    props.users.find(a => a.id === id)
 
   if (props.login === null || props.login.length === 0 ) {
     return (
@@ -59,10 +63,13 @@ const App = (props) => {
           <Route exact path="/blogs" render={() =>
             <BlogList />
           } />
-          <Route path="/users" render={() =>
+          <Route exact path="/users" render={() =>
             <UserList />
           } />
-          <Route path="/" render={() =>
+          <Route exact path="/users/:id" render={({ match }) =>
+            <User user={userById(match.params.id)} />
+          } />
+          <Route exact path="/" render={() =>
             <Togglable buttonLabel='create new blog'>
               <CreateNew />
             </Togglable>
@@ -75,7 +82,8 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    login: state.login
+    login: state.login,
+    users: state.users
   }
 }
 
