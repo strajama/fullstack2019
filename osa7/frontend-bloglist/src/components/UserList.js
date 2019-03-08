@@ -1,6 +1,7 @@
 import React from 'react'
-import { notificationNew } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
+import { Table } from 'react-bootstrap'
+import { notificationNew } from '../reducers/notificationReducer'
 import User from './User'
 
 const UserList = (props) => {
@@ -8,15 +9,27 @@ const UserList = (props) => {
   return (
     <div>
       <h2>Users</h2>
-      {props.visibleUsers.map(user =>
-        <User key={user.id} user={user} />
-      )}
+      <Table striped>
+        <thead>
+          <tr>
+            <td>users name</td>
+            <td>blogs created</td>
+          </tr>
+        </thead>
+        <tbody>
+          {props.visibleUsers.map(user =>
+            <tr key={user.id}>
+              <td>{user.name}</td>
+              <td>{user.blogs.length}</td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
     </div>
   )
 }
 
 const usersToShow = ({ users }) => {
-  console.log('usersToshow', users)
   return users //blogs.sort((a, b) => b.likes - a.likes)
 }
 

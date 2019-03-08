@@ -49,9 +49,8 @@ const App = (props) => {
   }
 
   return (
-    <div>
+    <div className="container">
       <h2>blogs app</h2>
-
       <Router>
         <div>
           <Menu />
@@ -64,7 +63,7 @@ const App = (props) => {
             <UserList />
           } />
           <Route path="/" render={() =>
-            <Togglable buttonLabel='create new'>
+            <Togglable buttonLabel='create new blog'>
               <CreateNew />
             </Togglable>
           } />

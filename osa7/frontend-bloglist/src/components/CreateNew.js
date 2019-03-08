@@ -19,9 +19,10 @@ const CreateNew = (props) => {
   }
 
   const handleSubmit = async event => {
+    console.log('props.login', props.login)
     event.preventDefault()
     const newBlog = await createNew({
-      title: title.value, author: author.value, url: url.value
+      title: title.value, author: author.value, url: url.value, user: props.login.id
     })
     if (newBlog) {
       title.reset()
@@ -61,7 +62,8 @@ const CreateNew = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    blogs: state.blogs
+    blogs: state.blogs,
+    login: state.login
   }
 }
 

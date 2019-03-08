@@ -14,7 +14,6 @@ blogsRouter.get('/', async (request, response, next) => {
 })
 
 blogsRouter.post('/', async (request, response, next) => {
-  console.log('nyt postataan')
   if (request.body.title === undefined) {
     return response.status(400).json({ error: 'title is missing' })
   }
@@ -33,9 +32,8 @@ blogsRouter.post('/', async (request, response, next) => {
     blog.user = decodedToken.id
     await blog.save()
     const user = await User.findById(decodedToken.id)
-    user.blog = user.blogs.concat(blog.id)
+    user.blogs = user.blogs.concat(blog)
     await user.save()
-
     response.status(201).json(blog.toJSON())
   } catch (error) {
     next(error)
