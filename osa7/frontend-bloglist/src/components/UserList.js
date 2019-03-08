@@ -12,7 +12,7 @@ const UserList = (props) => {
       <Table striped>
         <thead>
           <tr>
-            <td>users name</td>
+            <td></td>
             <td>blogs created</td>
           </tr>
         </thead>

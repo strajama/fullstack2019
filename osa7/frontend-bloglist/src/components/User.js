@@ -1,12 +1,18 @@
 import React from 'react'
 
-const User = ({ user }) => {
-  console.log('user', user)
+const User = (props) => {
+  if ( props.user === undefined) {
+    return null
+  }
+
 
 
   return (
     <div>
-      <p>hello world</p>
+      <h2>{props.user.name}</h2>
+
+      <h3>added blogs</h3>
+      // ...
     </div>
   )
 }

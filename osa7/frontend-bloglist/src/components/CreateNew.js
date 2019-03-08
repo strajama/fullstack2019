@@ -19,7 +19,6 @@ const CreateNew = (props) => {
   }
 
   const handleSubmit = async event => {
-    console.log('props.login', props.login)
     event.preventDefault()
     const newBlog = await createNew({
       title: title.value, author: author.value, url: url.value, user: props.login.id
