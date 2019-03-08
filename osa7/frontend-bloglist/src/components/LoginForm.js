@@ -4,7 +4,7 @@ import loginService from '../services/login'
 import blogService from '../services/blogs'
 import { notificationNew } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
-import { newUser } from '../reducers/userReducer'
+import { newUser } from '../reducers/loginReducer'
 
 const LoginForm = (props) => {
   const username = useField('text')

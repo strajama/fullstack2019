@@ -1,15 +1,23 @@
 import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import {
+  BrowserRouter as Router,
+  Route, Link, Redirect, withRouter
+} from 'react-router-dom'
 import blogService from './services/blogs'
+import { notificationNew } from './reducers/notificationReducer'
+import { initializeUsers } from './reducers/userReducer'
+import { initializeBlogs } from './reducers/blogReducer'
+import { newUser, logout } from './reducers/loginReducer'
+import UserForm from './components/UserForm'
+import UserList from './components/UserList'
 import LoginForm from './components/LoginForm'
 import CreateNew from './components/CreateNew'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
-import { notificationNew } from './reducers/notificationReducer'
-import { connect } from 'react-redux'
-import { initializeBlogs } from './reducers/blogReducer'
-import { newUser, logout } from './reducers/userReducer'
-import UserForm from './components/UserForm'
+import Menu from './components/Menu'
+
 
 const App = (props) => {
 
@@ -18,15 +26,19 @@ const App = (props) => {
   }, [])
 
   useEffect(() => {
+    props.initializeUsers()
+  }, [])
+
+  useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      props.newUser(user)
-      blogService.setToken(user.token)
+      const login = JSON.parse(loggedUserJSON)
+      props.newUser(login)
+      blogService.setToken(login.token)
     }
   }, [window.localStorage])
 
-  if (props.user === null || props.user.length === 0 ) {
+  if (props.login === null || props.login.length === 0 ) {
     return (
       <div>
         <h2>Log in to application</h2>
@@ -38,26 +50,38 @@ const App = (props) => {
 
   return (
     <div>
-      <h2>blogs</h2>
-      <Notification />
-      <UserForm />
-      <BlogList />
-      <Togglable buttonLabel='create new'>
-        <CreateNew />
-      </Togglable>
+      <h2>blogs app</h2>
+
+      <Router>
+        <div>
+          <Menu />
+          < Notification />
+          <UserForm />
+          <Route exact path="/blogs" render={() =>
+            <BlogList />
+          } />
+          <Route path="/users" render={() =>
+            <UserList />
+          } />
+          <Route path="/" render={() =>
+            <Togglable buttonLabel='create new'>
+              <CreateNew />
+            </Togglable>
+          } />
+        </div>
+      </Router>
     </div>
   )
-
 }
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    login: state.login
   }
 }
 
 const mapDispatchToProps = {
-  notificationNew, initializeBlogs, newUser, logout
+  notificationNew, initializeBlogs, initializeUsers, newUser, logout
 }
 
 const ConnectedApp = connect(
@@ -66,5 +90,3 @@ const ConnectedApp = connect(
 )(App)
 
 export default ConnectedApp
-
-// export default connect(null, { notificationNew, initializeBlogs, newUser  })(App)

@@ -1,7 +1,12 @@
 import React from 'react'
+import {
+  BrowserRouter as Router,
+  Route, Link, Redirect, withRouter
+} from 'react-router-dom'
+import { connect } from 'react-redux'
 import { like, remove } from '../reducers/blogReducer'
 import { notificationNew } from '../reducers/notificationReducer'
-import { connect } from 'react-redux'
+
 import Blog from './Blog'
 
 const BlogList = (props) => {
@@ -31,10 +36,16 @@ const BlogList = (props) => {
 
   return (
     <div>
-      <p>blogilistatulostus</p>
-      {props.visibleBlogs.map(blog =>
-        <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog}/>
-      )}
+      <ul>
+        {props.visibleBlogs.map(blog =>
+          <li key={blog.id}>
+            <Link to={`/blogs/${blog.id}`}>
+              <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog}/>
+            </Link>
+          </li>
+        )}
+      </ul>
+
     </div>
   )
 }

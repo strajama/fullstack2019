@@ -2,7 +2,7 @@ import React from 'react'
 import { notificationNew } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
 import blogService from '../services/blogs'
-import { logout } from '../reducers/userReducer'
+import { logout } from '../reducers/loginReducer'
 
 const UserForm = (props) => {
 
@@ -15,7 +15,7 @@ const UserForm = (props) => {
 
   return (
     <div>
-      <p>{props.user.name} logged in</p>
+      <p>{props.login.name} logged in</p>
       <p><button onClick={handleLogout} className='handleLogout'>Log out</button></p>
     </div>
   )
@@ -23,7 +23,7 @@ const UserForm = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    login: state.login
   }
 }
 
