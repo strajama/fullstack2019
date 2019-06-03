@@ -1,5 +1,7 @@
 # fullstack2019
 
+Helsingin yliopiston mooc-kurssin https://fullstack-hy2019.github.io/ tehtävät 
+
 [osa 0](https://github.com/strajama/fullstack2019/tree/master/osa0)
 
 [osa 1](https://github.com/strajama/fullstack2019/tree/master/osa1)
